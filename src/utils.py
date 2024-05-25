@@ -17,7 +17,9 @@ rmse_scorer = make_scorer(lambda true, pred: np.sqrt(mean_squared_error(true, pr
 
 def numerical_plot(df: DataFrame,
                    column: str,
-                   target_column: str = None):
+                   target_column: str = None,
+                   width: int = 12,
+                   height: int = 4):
     """
     Generate multiple plots for the given DataFrame and column.
 
@@ -25,6 +27,8 @@ def numerical_plot(df: DataFrame,
     - df (DataFrame): The input DataFrame.
     - column (str): The column name to plot.
     - target_column (str, optional): The target column for scatter plot. Default is None.
+    - width (int, optional): The width of the plot. Default is 12.
+    - height (int, optional): The height of the plot. Default is 4.
 
     Returns:
     None
@@ -33,7 +37,7 @@ def numerical_plot(df: DataFrame,
     ncols = 3 if target_column else 2
     width_ratios = [1, 3, 2] if target_column else [1, 2]
 
-    _, ax = plt.subplots(figsize=(14, 5), ncols=ncols, width_ratios=width_ratios)
+    _, ax = plt.subplots(figsize=(width, height), ncols=ncols, width_ratios=width_ratios)
     sns.boxplot(data=df, y=column, ax=ax[0],
                 saturation=0.9, gap=.5,
                 flierprops=dict(marker='o', markersize=2),
@@ -72,7 +76,8 @@ def categorical_plot(df,
                      column: str,
                      target_column: str = None,
                      orient: str = 'x',
-                     width=12):
+                     width: int =12,
+                     height: int =4):
     """
     Generate a categorical plot for a given column in a DataFrame.
 
@@ -82,6 +87,7 @@ def categorical_plot(df,
     - target_column (str, optional): The target column for scatter plot. Default is None.
     - orient (str, optional): The orientation of the plot. Default is 'x'.
     - width (int, optional): The width of the plot. Default is 12.
+    - height (int, optional): The height of the plot. Default is 4.
 
     Returns:
     None
@@ -96,7 +102,7 @@ def categorical_plot(df,
     # width_ratios = [1, 3, 2] if target_column else [1, 2]
 
     # Countplot
-    _, ax = plt.subplots(figsize=(width, 4), ncols=ncols)
+    _, ax = plt.subplots(figsize=(width, height), ncols=ncols)
     sns.countplot(data=df,
                   x=column if orient == 'x' else None,
                   y=column if orient == 'y' else None,
